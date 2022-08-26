@@ -24,20 +24,9 @@ public class DepartmentController {
         return departmentService.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public Department registerDepartment(@RequestBody Department department){
         return departmentService.save(department);
-    }
-
-    @PostMapping("/{id}")
-    public Department updateDepartment(@PathVariable Long id, @RequestBody Department department){
-        department.setId(id);
-        return departmentService.update(department);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteDepartment(@PathVariable Long id){
-        departmentService.deleteByCode(id);
     }
 
 }

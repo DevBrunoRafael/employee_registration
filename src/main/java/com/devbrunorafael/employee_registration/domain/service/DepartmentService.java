@@ -29,13 +29,4 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    @Transactional
-    public Department update(Department department) {
-        return departmentRepository.save(department);
-    }
-
-    @Transactional
-    public void deleteByCode(Long id) {
-        departmentRepository.deleteById(id);
-    }
 }

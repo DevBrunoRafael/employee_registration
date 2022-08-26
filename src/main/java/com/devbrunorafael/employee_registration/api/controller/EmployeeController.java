@@ -24,18 +24,18 @@ public class EmployeeController {
         return employeeService.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/registrar")
     public Employee registerEmployee(@RequestBody Employee employee){
         return employeeService.save(employee);
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         employee.setId(id);
         return employeeService.update(employee);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/excluir/{id}")
     public void deleteEmployee(@PathVariable Long id){
        employeeService.deleteByCode(id);
     }
