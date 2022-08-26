@@ -3,8 +3,7 @@ package com.devbrunorafael.employee_registration.api.controller;
 import com.devbrunorafael.employee_registration.domain.model.Employee;
 import com.devbrunorafael.employee_registration.domain.service.EmployeeService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,20 +14,31 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    public Employee findEmployee(Long id){
-        return employeeService.findById(id);
+    @GetMapping("/{code}")
+    public Employee findEmployee(@PathVariable String code){
+        return employeeService.findByCode(code);
     }
 
+    @GetMapping
     public List<Employee> findAllEmployees(){
         return employeeService.findAll();
     }
 
-    public Employee updateEmployee(Long id){
-        return employeeService.updateById(id);
+    @PostMapping
+    public Employee registerEmployee(@RequestBody Employee employee){
+        return employeeService.save(employee);
     }
 
-    public void deleteEmployee(Long id){
-       employeeService.delete(id);
+
+    @PostMapping("/{code}")
+    public Employee updateEmployee(@PathVariable String code, @RequestBody Employee employee){
+        employee.setCode(code);
+        return employeeService.update(employee);
+    }
+
+    @DeleteMapping("/{code}")
+    public void deleteEmployee(@PathVariable String code){
+       employeeService.deleteByCode(code);
     }
 
 }
