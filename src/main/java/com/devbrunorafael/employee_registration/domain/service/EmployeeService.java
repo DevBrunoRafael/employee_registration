@@ -1,6 +1,6 @@
 package com.devbrunorafael.employee_registration.domain.service;
 
-import com.devbrunorafael.employee_registration.api.controller.model.Employee;
+import com.devbrunorafael.employee_registration.domain.model.Employee;
 import com.devbrunorafael.employee_registration.domain.repository.EmployeesRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.devbrunorafael.employee_registration.api.controller.model;
+package com.devbrunorafael.employee_registration.domain.model;
 
 import lombok.Data;
 

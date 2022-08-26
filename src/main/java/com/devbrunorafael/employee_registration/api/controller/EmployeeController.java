@@ -1,6 +1,6 @@
 package com.devbrunorafael.employee_registration.api.controller;
 
-import com.devbrunorafael.employee_registration.api.controller.model.Employee;
+import com.devbrunorafael.employee_registration.domain.model.Employee;
 import com.devbrunorafael.employee_registration.domain.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
