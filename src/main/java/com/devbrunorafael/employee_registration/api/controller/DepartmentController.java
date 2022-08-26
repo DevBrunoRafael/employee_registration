@@ -1,6 +1,6 @@
 package com.devbrunorafael.employee_registration.api.controller;
 
-import com.devbrunorafael.employee_registration.domain.model.Department;
+import com.devbrunorafael.employee_registration.api.controller.model.Department;
 import com.devbrunorafael.employee_registration.domain.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,30 +14,30 @@ public class DepartmentController {
 
     private DepartmentService departmentService;
 
-    @GetMapping("/{code}")
-    public Department findEmployee(@PathVariable String code){
-        return departmentService.findByCode(code);
+    @GetMapping("/{id}")
+    public Department findDepartment(@PathVariable Long id){
+        return departmentService.findByCode(id);
     }
 
     @GetMapping
-    public List<Department> findAllEmployees(){
+    public List<Department> findAllDepartments(){
         return departmentService.findAll();
     }
 
     @PostMapping
-    public Department registerEmployee(@RequestBody Department department){
+    public Department registerDepartment(@RequestBody Department department){
         return departmentService.save(department);
     }
 
-    @PostMapping("/{code}")
-    public Department updateEmployee(@PathVariable String code, @RequestBody Department department){
-        department.setCode(code);
+    @PostMapping("/{id}")
+    public Department updateDepartment(@PathVariable Long id, @RequestBody Department department){
+        department.setId(id);
         return departmentService.update(department);
     }
 
-    @DeleteMapping("/{code}")
-    public void deleteEmployee(@PathVariable String code){
-        departmentService.deleteByCode(code);
+    @DeleteMapping("/{id}")
+    public void deleteDepartment(@PathVariable Long id){
+        departmentService.deleteByCode(id);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.devbrunorafael.employee_registration.api.controller;
 
-import com.devbrunorafael.employee_registration.domain.model.Employee;
+import com.devbrunorafael.employee_registration.api.controller.model.Employee;
 import com.devbrunorafael.employee_registration.domain.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/funcionarios")
+@RequestMapping("/empregados")
 @AllArgsConstructor
 public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    @GetMapping("/{code}")
-    public Employee findEmployee(@PathVariable String code){
-        return employeeService.findByCode(code);
+    @GetMapping("/{id}")
+    public Employee findEmployee(@PathVariable Long id){
+        return employeeService.findByCode(id);
     }
 
     @GetMapping
@@ -29,16 +29,15 @@ public class EmployeeController {
         return employeeService.save(employee);
     }
 
-
-    @PostMapping("/{code}")
-    public Employee updateEmployee(@PathVariable String code, @RequestBody Employee employee){
-        employee.setCode(code);
+    @PostMapping("/{id}")
+    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
+        employee.setId(id);
         return employeeService.update(employee);
     }
 
-    @DeleteMapping("/{code}")
-    public void deleteEmployee(@PathVariable String code){
-       employeeService.deleteByCode(code);
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable Long id){
+       employeeService.deleteByCode(id);
     }
 
 }

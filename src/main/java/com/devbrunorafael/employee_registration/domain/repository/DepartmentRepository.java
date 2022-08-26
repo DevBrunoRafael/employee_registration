@@ -1,9 +1,8 @@
 package com.devbrunorafael.employee_registration.domain.repository;
 
-import com.devbrunorafael.employee_registration.domain.model.Department;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.devbrunorafael.employee_registration.api.controller.model.Department;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DepartmentRepository extends MongoRepository<Department, String> {
-}
+public interface DepartmentRepository extends JpaRepository<Department, Long> { }
