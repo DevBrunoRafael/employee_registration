@@ -1,19 +1,25 @@
 package com.devbrunorafael.employee_registration.domain.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "tb_employees")
+@Table(name = "employees")
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Include
     private Long id;
 
     private String name;
@@ -25,7 +31,9 @@ public class Employee {
 
     private String position;
     private BigDecimal salary;
+
     @ManyToOne
+    @JoinColumn(name = "department_id")
     private Department department;
 
 }
