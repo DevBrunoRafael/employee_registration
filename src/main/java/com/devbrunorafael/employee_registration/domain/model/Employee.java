@@ -1,6 +1,8 @@
 package com.devbrunorafael.employee_registration.domain.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +26,16 @@ public class Employee {
     private Long id;
 
     private String name;
+    private String cpf;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date birthDate;
+    private String phone;
+    private String Email;
+
+    private String position;
     private BigDecimal salary;
 
+    @JsonIgnore
     @ManyToOne
     private Department department;
 
