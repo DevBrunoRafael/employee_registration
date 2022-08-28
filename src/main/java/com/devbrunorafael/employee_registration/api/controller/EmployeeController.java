@@ -18,32 +18,32 @@ public class EmployeeController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Employee findEmployee(@PathVariable Long id){
-        return employeeService.findByCode(id);
+        return employeeService.findEmployeeById(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Employee> findAllEmployees(){
-        return employeeService.findAll();
+        return employeeService.findEmployees();
     }
 
-    @PostMapping("/cadastrar") // implementar busca por id do departamento na classe de serviço
+    @PostMapping("/cadastrar")
     @ResponseStatus(HttpStatus.CREATED)
     public Employee registerEmployee(@RequestBody Employee employee){
-        return employeeService.save(employee);
+        return employeeService.saveEmployee(employee);
     }
 
     @PutMapping("/atualizar/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         employee.setId(id);
-        return employeeService.update(employee);
+        return employeeService.updateEmployee(employee);
     }
 
     @DeleteMapping("/excluir/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteEmployee(@PathVariable Long id){
-       employeeService.deleteByCode(id);
+       employeeService.deleteEmployeeById(id);
     }
 
 }

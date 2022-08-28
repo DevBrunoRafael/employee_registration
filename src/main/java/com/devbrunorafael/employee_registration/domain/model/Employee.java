@@ -4,6 +4,7 @@ package com.devbrunorafael.employee_registration.domain.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -23,17 +24,9 @@ public class Employee {
     private Long id;
 
     private String name;
-    private String cpf;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date birthDate;
-    private String phone;
-    private String email;
-
-    private String position;
     private BigDecimal salary;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
     private Department department;
 
 }

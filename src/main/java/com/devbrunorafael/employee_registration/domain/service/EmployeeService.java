@@ -15,27 +15,27 @@ public class EmployeeService {
     private EmployeesRepository employeesRepository;
 
     @Transactional
-    public Employee findByCode(Long id){
+    public Employee findEmployeeById(Long id){
         return employeesRepository.findById(id).get();
     }
 
     @Transactional
-    public List<Employee> findAll(){
+    public List<Employee> findEmployees(){
         return employeesRepository.findAll();
     }
 
     @Transactional
-    public Employee save(Employee employee) {
+    public Employee saveEmployee(Employee employee) {
         return employeesRepository.save(employee);
     }
 
     @Transactional
-    public Employee update(Employee employee){
+    public Employee updateEmployee(Employee employee){
         return employeesRepository.save(employee);
     }
 
     @Transactional
-    public void deleteByCode(Long id){
+    public void deleteEmployeeById(Long id){
         employeesRepository.deleteById(id);
     }
 

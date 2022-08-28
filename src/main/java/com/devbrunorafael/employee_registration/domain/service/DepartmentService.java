@@ -15,17 +15,17 @@ public class DepartmentService {
     private DepartmentRepository departmentRepository;
 
     @Transactional
-    public Department findByCode(Long id) {
+    public Department findDepartmentById(Long id) {
         return departmentRepository.findById(id).get();
     }
 
     @Transactional
-    public List<Department> findAll() {
+    public List<Department> findDepartments() {
         return departmentRepository.findAll();
     }
 
     @Transactional
-    public Department save(Department department) {
+    public Department saveDepartment(Department department) {
         return departmentRepository.save(department);
     }
 

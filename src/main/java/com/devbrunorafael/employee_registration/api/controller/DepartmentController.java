@@ -18,19 +18,19 @@ public class DepartmentController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Department findDepartment(@PathVariable Long id){
-        return departmentService.findByCode(id);
+        return departmentService.findDepartmentById(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Department> findAllDepartments(){
-        return departmentService.findAll();
+        return departmentService.findDepartments();
     }
 
     @PostMapping("/cadastrar")
     @ResponseStatus(HttpStatus.CREATED)
     public Department registerDepartment(@RequestBody Department department){
-        return departmentService.save(department);
+        return departmentService.saveDepartment(department);
     }
 
 }
