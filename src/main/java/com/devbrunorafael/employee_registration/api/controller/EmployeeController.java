@@ -27,10 +27,10 @@ public class EmployeeController {
         return employeeService.findEmployees();
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/cadastrar/{dptId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee registerEmployee(@RequestBody Employee employee){
-        return employeeService.saveEmployee(employee);
+    public Employee registerEmployee(@PathVariable Long dptId, @RequestBody Employee employee){
+        return employeeService.saveEmployee(dptId, employee);
     }
 
     @PutMapping("/atualizar/{id}")

@@ -1,5 +1,6 @@
 package com.devbrunorafael.employee_registration.domain.service;
 
+import com.devbrunorafael.employee_registration.domain.model.Department;
 import com.devbrunorafael.employee_registration.domain.model.Employee;
 import com.devbrunorafael.employee_registration.domain.repository.EmployeesRepository;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 public class EmployeeService {
 
     private EmployeesRepository employeesRepository;
+    private DepartmentService departmentService;
 
     @Transactional
     public Employee findEmployeeById(Long id){
@@ -25,7 +27,9 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Employee saveEmployee(Employee employee) {
+    public Employee saveEmployee(Long dptId, Employee employee) {
+        Department department = departmentService.findDepartmentById(dptId);
+        employee.setDepartment(department);
         return employeesRepository.save(employee);
     }
 

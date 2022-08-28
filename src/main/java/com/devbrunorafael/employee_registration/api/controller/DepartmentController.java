@@ -1,6 +1,7 @@
 package com.devbrunorafael.employee_registration.api.controller;
 
 import com.devbrunorafael.employee_registration.domain.model.Department;
+import com.devbrunorafael.employee_registration.domain.model.Employee;
 import com.devbrunorafael.employee_registration.domain.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,11 @@ import java.util.List;
 public class DepartmentController {
 
     private DepartmentService departmentService;
+
+    @GetMapping("/{id}/empregados")
+    public List<Employee> findDepartmentEmployees(@PathVariable Long id){
+        return departmentService.findEmployees(id);
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
