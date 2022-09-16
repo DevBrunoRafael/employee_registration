@@ -1,6 +1,5 @@
 package com.devbrunorafael.employee_registration.domain.service;
 
-import ch.qos.logback.core.joran.spi.EventPlayer;
 import com.devbrunorafael.employee_registration.domain.model.Department;
 import com.devbrunorafael.employee_registration.domain.model.Employee;
 import com.devbrunorafael.employee_registration.domain.repository.DepartmentRepository;
@@ -38,7 +37,18 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    public boolean exists(String name){
+    @Transactional
+    public Department updateDepartment(Department department){
+        return departmentRepository.save(department);
+    }
+
+    @Transactional
+    public void deleteDepartment(Department department){
+        departmentRepository.delete(department);
+    }
+
+    @Transactional
+    public boolean existsName(String name){
         return departmentRepository.existsDepartmentByName(name);
     }
 

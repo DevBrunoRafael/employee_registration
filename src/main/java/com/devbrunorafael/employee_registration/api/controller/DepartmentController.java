@@ -50,7 +50,7 @@ public class DepartmentController {
         List<Department> departments = departmentService.findDepartments();
 
         if (departments.size() == 0) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Não há departamentos cadastrados");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Não há departamentos cadastrados!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(departments);
     }
@@ -59,11 +59,37 @@ public class DepartmentController {
     @PostMapping("/cadastrar")
     public ResponseEntity<Object> registerDepartment(@RequestBody Department department){
 
-        if (departmentService.exists(department.getName())) {
+        if (departmentService.existsName(department.getName())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("O departamento já existe!");
         }
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(departmentService.saveDepartment(department));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Object> updateDepartment(@PathVariable(name = "id") Long id,
+                                                   @RequestBody Department department){
+        Optional<Department> departmentOptional = departmentService.findDepartmentById(id);
+        if (departmentOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Departamento ".concat(String.valueOf(id)).concat(" não encontrado."));
+        }
+        department.setId(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(departmentService.updateDepartment(department));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> deleteDepartment(@PathVariable(name = "id") Long id){
+        Optional<Department> departmentOptional = departmentService.findDepartmentById(id);
+
+        if (departmentOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Departamento ".concat(String.valueOf(id)).concat(" não encontrado."));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("departamento excluído com sucesso!");
     }
 
 }
