@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -18,13 +19,13 @@ public class DepartmentService {
 
     @Transactional
     public List<Employee> findEmployees(Long id){
-        return this.findDepartmentById(id)
-                .getEmployees();
+        Department department = departmentRepository.findById(id).get();
+        return department.getEmployees();
     }
 
     @Transactional
-    public Department findDepartmentById(Long id) {
-        return departmentRepository.findById(id).get();
+    public Optional<Department> findDepartmentById(Long id) {
+        return departmentRepository.findById(id);
     }
 
     @Transactional
@@ -35,6 +36,10 @@ public class DepartmentService {
     @Transactional
     public Department saveDepartment(Department department) {
         return departmentRepository.save(department);
+    }
+
+    public boolean exists(String name){
+        return departmentRepository.existsDepartmentByName(name);
     }
 
 }

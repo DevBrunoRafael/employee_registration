@@ -28,7 +28,7 @@ public class EmployeeService {
 
     @Transactional
     public Employee saveEmployee(Long dptId, Employee employee) {
-        Department department = departmentService.findDepartmentById(dptId);
+        Department department = departmentService.findDepartmentById(dptId).get();
         employee.setDepartment(department);
         return employeesRepository.save(employee);
     }
