@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -17,8 +18,8 @@ public class EmployeeService {
     private DepartmentService departmentService;
 
     @Transactional
-    public Employee findEmployeeById(Long id){
-        return employeesRepository.findById(id).get();
+    public Optional<Employee> findEmployeeById(Long id){
+        return employeesRepository.findById(id);
     }
 
     @Transactional

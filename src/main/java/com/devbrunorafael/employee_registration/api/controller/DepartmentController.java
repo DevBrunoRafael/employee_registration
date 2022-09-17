@@ -39,7 +39,7 @@ public class DepartmentController {
 
         if (department.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Departamento ".concat(String.valueOf(id)).concat(" não encontrado!"));
+                    .body("Departamento não encontrado!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(department.get());
     }
@@ -75,7 +75,7 @@ public class DepartmentController {
         Optional<Department> departmentOptional = departmentService.findDepartmentById(id);
         if (departmentOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Departamento ".concat(String.valueOf(id)).concat(" não encontrado."));
+                    .body("Departamento não encontrado.");
         }
         department.setId(id);
         return ResponseEntity.status(HttpStatus.OK)
@@ -89,10 +89,10 @@ public class DepartmentController {
 
         if (departmentOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Departamento ".concat(String.valueOf(id)).concat(" não encontrado."));
+                    .body("Departamento não encontrado.");
         }
         return ResponseEntity.status(HttpStatus.OK)
-                .body("departamento excluído com sucesso!");
+                .body("Departamento excluído com sucesso!");
     }
 
 }
