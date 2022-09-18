@@ -82,10 +82,12 @@ public class EmployeeController {
     public ResponseEntity<Object> deleteEmployee(@PathVariable(name = "id") Long id){
        Optional<Employee> employeeOptional = employeeService.findEmployeeById(id);
 
-       if (employeeOptional.isPresent()){
+       if (employeeOptional.isEmpty()){
            return ResponseEntity.status(HttpStatus.NOT_FOUND)
                    .body("Empregado não encontrado.");
        }
+
+       employeeService.deleteEmployeeById(id);
        return ResponseEntity.status(HttpStatus.OK)
                .body("Empregado excluído com sucesso!");
     }

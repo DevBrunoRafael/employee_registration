@@ -25,7 +25,4 @@ public class EmployeeRequest {
     private String position;
     @NotBlank
     private BigDecimal salary;
-    @NotBlank
-    private Department department;
-
 }

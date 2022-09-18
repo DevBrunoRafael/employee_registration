@@ -20,6 +20,6 @@ public class EmployeeResponse {
     private String Email;
     private String position;
     private BigDecimal salary;
-    private Department department;
+    private String departmentName;
 
 }
