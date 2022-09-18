@@ -1,6 +1,6 @@
-package com.devbrunorafael.employee_registration.api.config.security.auth_persistence.repository;
+package com.devbrunorafael.employee_registration.api.security.auth_persistence.repository;
 
-import com.devbrunorafael.employee_registration.api.config.security.auth_persistence.model.User;
+import com.devbrunorafael.employee_registration.api.security.auth_persistence.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package com.devbrunorafael.employee_registration.api.config.security.auth_persistence.service;
+package com.devbrunorafael.employee_registration.api.security.auth_persistence.service;
 
-import com.devbrunorafael.employee_registration.api.config.security.auth_persistence.repository.UserRepository;
+import com.devbrunorafael.employee_registration.api.security.auth_persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

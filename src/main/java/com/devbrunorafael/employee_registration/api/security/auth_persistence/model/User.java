@@ -1,4 +1,4 @@
-package com.devbrunorafael.employee_registration.api.config.security.auth_persistence.model;
+package com.devbrunorafael.employee_registration.api.security.auth_persistence.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;

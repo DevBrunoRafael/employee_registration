@@ -1,6 +1,6 @@
-package com.devbrunorafael.employee_registration.api.config.security.auth_persistence.model;
+package com.devbrunorafael.employee_registration.api.security.auth_persistence.model;
 
-import com.devbrunorafael.employee_registration.api.config.security.auth_persistence.enums.RolesName;
+import com.devbrunorafael.employee_registration.api.security.auth_persistence.enums.RolesName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
