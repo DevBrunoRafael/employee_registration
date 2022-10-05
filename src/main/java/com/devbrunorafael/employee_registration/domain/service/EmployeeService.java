@@ -10,37 +10,67 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 @Service
-public class EmployeeService {
+@AllArgsConstructor
+@Transactional
+public class EmployeeService implements CrudMethods<Employee> {
 
     private EmployeesRepository employeesRepository;
     private DepartmentService departmentService;
 
-    @Transactional
-    public Optional<Employee> findEmployeeById(Long id){
-        return employeesRepository.findById(id);
+    @Override
+    public Optional<Employee> findOneById(Long id){
+        var employee = employeesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("empregado não encontrado"));
+
+        return Optional.of(employee);
     }
 
-    @Transactional
-    public List<Employee> findEmployees(){
-        return employeesRepository.findAll();
+    @Override
+    public Optional<List<Employee>> findAll(){
+        var employeeList = employeesRepository.findAll();
+        if(employeeList.size() == 0)
+            throw new RuntimeException("não há empregados cadastrados");
+
+        return Optional.of(employeeList);
     }
 
-    @Transactional
-    public Employee saveEmployee(Long dptId, Employee employee) {
-        Department department = departmentService.findDepartmentById(dptId).get();
-        employee.setDepartment(department);
-        return employeesRepository.save(employee);
+    public Optional<List<Employee>> findEmployeesByDepartment(Long id){
+        var department = departmentService.findOneById(id)
+                .orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+
+        var employeesList = employeesRepository.findEmployeesByDepartment(department);
+        if(employeesList.size() == 0)
+            throw new RuntimeException("não há empregados cadastrados nesse departamento");
+
+        return Optional.of(employeesList);
     }
 
-    @Transactional
-    public Employee updateEmployee(Employee employee){
-        return employeesRepository.save(employee);
+    @Override
+    public Optional<Employee> save(Employee employee) {
+        Department department = departmentService.findOneById(employee.getDepartment().getId())
+                .orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+
+        employee.setDepartment (department);
+        return Optional.of(employeesRepository.save(employee));
     }
 
-    @Transactional
-    public void deleteEmployeeById(Long id){
+    @Override
+    public Optional<Employee> update(Long id, Employee employee){
+
+        if(!employeesRepository.existsById(id))
+            throw new RuntimeException("empregado não existe");
+
+        employee.setId(id);
+        return Optional.of(employeesRepository.save(employee));
+    }
+
+    @Override
+    public void deleteById(Long id){
+
+        if(!employeesRepository.existsById(id))
+            throw new RuntimeException("empregado não existe");
+
         employeesRepository.deleteById(id);
     }
 

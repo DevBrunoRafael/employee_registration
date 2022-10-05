@@ -1,13 +1,10 @@
 package com.devbrunorafael.employee_registration.domain.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,13 +18,12 @@ import java.util.Date;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
     private String name;
     private String cpf;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
     private String phone;
     private String Email;
@@ -35,7 +31,6 @@ public class Employee {
     private String position;
     private BigDecimal salary;
 
-    @JsonIgnore
     @ManyToOne
     private Department department;
 

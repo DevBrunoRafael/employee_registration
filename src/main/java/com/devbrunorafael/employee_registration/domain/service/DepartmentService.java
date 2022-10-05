@@ -1,7 +1,6 @@
 package com.devbrunorafael.employee_registration.domain.service;
 
 import com.devbrunorafael.employee_registration.domain.model.Department;
-import com.devbrunorafael.employee_registration.domain.model.Employee;
 import com.devbrunorafael.employee_registration.domain.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,44 +11,53 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class DepartmentService {
+@Transactional
+public class DepartmentService implements CrudMethods<Department>{
 
     private DepartmentRepository departmentRepository;
 
-    @Transactional
-    public List<Employee> findEmployees(Long id){
-        Department department = departmentRepository.findById(id).get();
-        return department.getEmployees();
+    @Override
+    public Optional<Department> findOneById(Long id) {
+        var department = departmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
+
+        return Optional.of(department);
     }
 
-    @Transactional
-    public Optional<Department> findDepartmentById(Long id) {
-        return departmentRepository.findById(id);
+    @Override
+    public Optional<List<Department>> findAll() {
+        var departmentList = departmentRepository.findAll();
+        if(departmentList.size() == 0)
+            throw new RuntimeException("Não há empregados cadastrados");
+
+        return Optional.of(departmentList);
     }
 
-    @Transactional
-    public List<Department> findDepartments() {
-        return departmentRepository.findAll();
+    @Override
+    public Optional<Department> save(Department department) {
+        if(departmentRepository.existsDepartmentByName(department.getName()))
+            throw new RuntimeException("Departamento já existe");
+
+        return Optional.of(departmentRepository.save(department));
     }
 
-    @Transactional
-    public Department saveDepartment(Department department) {
-        return departmentRepository.save(department);
+    @Override
+    public Optional<Department> update(Long id, Department department){
+
+        if(departmentRepository.existsById(id))
+            throw new RuntimeException("Departamento não existe");
+
+        department.setId(id);
+        return Optional.of(departmentRepository.save(department));
     }
 
-    @Transactional
-    public Department updateDepartment(Department department){
-        return departmentRepository.save(department);
-    }
+    @Override
+    public void deleteById(Long id){
 
-    @Transactional
-    public void deleteDepartment(Department department){
-        departmentRepository.delete(department);
-    }
+        if(departmentRepository.existsById(id))
+            throw new RuntimeException("Departamento não existe");
 
-    @Transactional
-    public boolean existsName(String name){
-        return departmentRepository.existsDepartmentByName(name);
+        departmentRepository.deleteById(id);
     }
 
 }

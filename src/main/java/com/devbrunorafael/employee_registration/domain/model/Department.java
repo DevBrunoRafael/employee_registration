@@ -3,7 +3,6 @@ package com.devbrunorafael.employee_registration.domain.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -14,12 +13,12 @@ import java.util.List;
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Employee> employees = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Employee> employees;
 
 }
