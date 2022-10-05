@@ -8,6 +8,8 @@ import com.devbrunorafael.employee_registration.api.mapper.EmployeeMapper;
 import com.devbrunorafael.employee_registration.domain.service.DepartmentService;
 import com.devbrunorafael.employee_registration.domain.service.EmployeeService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +31,7 @@ public class DepartmentResource implements RestMethods<DepartmentResponse, Depar
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
+    @Cacheable(value = "department", key = "#id")
     @Override
     public ResponseEntity<DepartmentResponse> findOneById(@PathVariable(name = "id") Long id) {
         var department = departmentService.findOneById(id);
@@ -41,6 +44,7 @@ public class DepartmentResource implements RestMethods<DepartmentResponse, Depar
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
+    @Cacheable(value = "departments")
     @Override
     public ResponseEntity<List<DepartmentResponse>> findAll(){
         var departmentList = departmentService.findAll();
@@ -53,6 +57,7 @@ public class DepartmentResource implements RestMethods<DepartmentResponse, Depar
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}/empregados")
+    @Cacheable(value = "dpt-emp")
     public ResponseEntity<List<EmployeeResponse>> findDepartmentEmployees(@PathVariable("id") Long id){
          var employeesList = employeeService.findEmployeesByDepartment(id);
          if(employeesList.isEmpty())
@@ -65,6 +70,7 @@ public class DepartmentResource implements RestMethods<DepartmentResponse, Depar
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/cadastrar")
     @Override
+    @CacheEvict(value = {"dpt-emp", "departments", "department"}, allEntries = true)
     public ResponseEntity<DepartmentResponse> registerEntity(@RequestBody DepartmentRequest departmentRequest){
         var department = departmentMapper.requestDTO(departmentRequest);
         var departmentSaved = departmentService.save(department);
@@ -77,6 +83,7 @@ public class DepartmentResource implements RestMethods<DepartmentResponse, Depar
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
+    @CacheEvict(value = {"dpt-emp", "departments", "department"}, allEntries = true)
     @Override
     public ResponseEntity<DepartmentResponse> updateEntity(@PathVariable(name = "id") Long id,
                                                    @RequestBody DepartmentRequest departmentRequest){

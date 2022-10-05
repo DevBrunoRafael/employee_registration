@@ -5,6 +5,8 @@ import com.devbrunorafael.employee_registration.api.dto.response.EmployeeRespons
 import com.devbrunorafael.employee_registration.api.mapper.EmployeeMapper;
 import com.devbrunorafael.employee_registration.domain.service.EmployeeService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +26,7 @@ public class EmployeeResource implements RestMethods<EmployeeResponse, EmployeeR
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
+    @Cacheable(value = "employee", key = "#id")
     @Override
     public ResponseEntity<EmployeeResponse> findOneById(@PathVariable("id") Long id){
         var employee = employeeService.findOneById(id);
@@ -36,6 +39,7 @@ public class EmployeeResource implements RestMethods<EmployeeResponse, EmployeeR
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
+    @Cacheable(value = "employees")
     @Override
     public ResponseEntity<List<EmployeeResponse>> findAll(){
         var employeeList = employeeService.findAll();
@@ -48,6 +52,7 @@ public class EmployeeResource implements RestMethods<EmployeeResponse, EmployeeR
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/cadastrar")
+    @CacheEvict(value = {"employee", "employees"}, allEntries = true)
     @Override
     public ResponseEntity<EmployeeResponse> registerEntity(@RequestBody EmployeeRequest employeeRequest){
         var employee = employeeMapper.requestDTO(employeeRequest);
@@ -61,6 +66,7 @@ public class EmployeeResource implements RestMethods<EmployeeResponse, EmployeeR
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/atualizar/{id}")
+    @CacheEvict(value = {"employee", "employees"}, allEntries = true)
     @Override
     public ResponseEntity<EmployeeResponse> updateEntity(@PathVariable(name = "id") Long id,
                                                  @RequestBody EmployeeRequest employeeRequest){
